@@ -1,35 +1,38 @@
-from collections import deque
+import sys
+from collections import deque as dq
+input = sys.stdin.readline
+n, m, v = map(int, input().split())
+graph = [[] for _ in range(n+1)]
 
-
-def DFS(graph,V,visited) :
-    visited[V] = True
-    print(V,end=' ')
-    for i in graph[V] :
-        if not visited[i] :
-            DFS(graph,i,visited)
-  
-def BFS(graph,V,visited) :  
-    que = deque([V])
-    visited[V] = True
-    while que :
-        temp = que.popleft()
-        print(temp,end=' ')
-        for i in graph[temp] :
-            if not visited[i] :
-                que.append(i)
-                visited[i] = True
+for i in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
     
-N , M , V = map(int, input().split())
-graph = [[] for _ in range(N+1)]
-for _ in range(M) :
-    A, B = map(int,input().split())
-    graph[A].append(B)
-    graph[B].append(A)
-for i in range(1, N+1) :
-    graph[i].sort()
-visited = [False] * (N+1)
-DFS(graph,V,visited)
-print('')
-for i in range(N+1) :
-    visited[i] = False
-BFS(graph,V,visited)
+for j in range(1, n+1) :
+    graph[j].sort()
+
+def dfs(start, graph, visited) :
+    visited[start] = True
+    print(start, end=' ')
+    for i in graph[start] :
+        if not visited[i]:
+            dfs(i, graph, visited)
+        
+def bfs(start, graph, visited) :
+    visited[start] = True
+    queue = dq([start])
+
+    while queue :
+        v = queue.popleft()
+        print(v, end=' ')
+        for i in graph[v] :
+            if not visited[i] :
+                visited[i] = True
+                queue.append(i)
+
+visited = [False] * (n+1)
+dfs(v, graph, visited)
+print()
+visited = [False] * (n+1)
+bfs(v, graph, visited)
