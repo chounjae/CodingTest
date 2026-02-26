@@ -9,10 +9,7 @@ m = int(input())
 m_arr = list(map(int, input().split()))
 
 counts = Counter(n_arr)
-result = [0] * m
 
-for i in range(m):
-    if m_arr[i] in counts.keys():
-        result[i] = counts[m_arr[i]]
-        
+result = [counts[m_arr[i]] for i in range(m)]
+
 print(*result)
