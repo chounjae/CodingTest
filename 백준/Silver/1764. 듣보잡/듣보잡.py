@@ -1,16 +1,17 @@
-a, b = map(int, input().split())
+import sys
+from collections import Counter
+input = sys.stdin.readline
 
-noSee = set()
-noHear = set()
+n, m = map(int, input().split())
 
-for i in range(a):
-    noSee.add(input())
+no_hear = set(input().strip() for _ in range(n))
+no_look = set(input().strip() for _ in range(m))
 
-for j in range(b):
-    noHear.add(input())
+no_hear_and_look = no_hear & no_look
 
-noBoth = noSee.intersection(noHear)
+result = list(no_hear_and_look)
 
-print(len(noBoth))
-for name in sorted(noBoth):
-    print(name)
+print(len(result))
+
+for i in sorted(result) :
+    print(i)
