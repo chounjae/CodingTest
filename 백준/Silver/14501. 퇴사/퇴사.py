@@ -1,16 +1,17 @@
-N = int(input())
+import sys
+input = sys.stdin.readline
 
-caseT = [0] * (N+2)
-caseP = [0] * (N+2)
-dp = [0] * (N+2)
-for i in range(1,N+1) :
-    T,P = map(int,input().split())
-    caseT[i] = T
-    caseP[i] = P
+n = int(input())
 
-for i in range(N,0,-1) :
-    if caseT[i] < N+2-i :
-        dp[i] = max(caseP[i],dp[i+caseT[i]]+caseP[i],dp[i+1])
-    else :
+arr = [list(map(int, input().split())) for _ in range(n)]
+dp = [0] * (n + 2)
+
+
+
+for i in range(n, 0, -1):
+    if i + arr[i-1][0] <= n + 1:
+        dp[i] = max(arr[i-1][1] + dp[i + arr[i-1][0]], dp[i+1])
+    else:
         dp[i] = dp[i+1]
-print(max(dp))
+
+print(dp[1])
